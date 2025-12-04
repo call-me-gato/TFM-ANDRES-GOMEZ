@@ -1,0 +1,643 @@
+/* --- RESET Y GLOBALES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden; /* Importante para evitar scroll horizontal nativo */
+    scroll-behavior: smooth;
+    cursor: none; /* Ocultamos el cursor por defecto */
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-black);
+    color: var(--color-white);
+    font-weight: 100;
+    line-height: 1.6;
+    text-wrap: balance;
+}
+
+h1,h2,p{
+    pointer-events: none;
+    user-select: none;
+}
+p {
+    font-weight: 100;
+}
+/* --- Custom Cursor --- */
+.custom-cursor {
+    visibility: inherit;
+    position: fixed;
+    /* El top y left se controlan por JS */
+    width: 40px; /* Ajusta el tamaño según tu SVG */
+    height: 40px; /* Ajusta el tamaño según tu SVG */
+    background-image: url('./assets/img/cursor.svg'); /* <-- CAMBIA ESTO por la ruta a tu SVG */
+    background-size: contain;
+    background-repeat: no-repeat;
+    mix-blend-mode: difference;
+    pointer-events: none; /* Esencial para que no bloquee los clics */
+    z-index: 90; /* Asegura que esté por encima de todo */
+    will-change: transform; /* Optimización para el movimiento */
+}
+
+/* loader pagina */
+
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* Por encima de todo */
+    /* Noise overlay */
+    background: url("./assets/img/noise.png"), var(--color-white);
+    background-size: 200px 200px;
+    animation: 250ms steps(10, end) 0s infinite alternate-reverse none running noise-animation;
+}
+
+.loader {
+    width: 40px;
+    aspect-ratio: 1;
+    --c: linear-gradient(var(--color-black) 0 0);
+    --r1: radial-gradient(farthest-side at bottom,var(--color-black) 93%,#0000);
+    --r2: radial-gradient(farthest-side at top   ,var(--color-black) 93%,#0000);
+    background: 
+      var(--c) ,var(--r1),var(--r2),
+      var(--c) ,var(--r1),var(--r2),
+      var(--c) ,var(--r1),var(--r2);
+    background-repeat: no-repeat;
+    animation: l2 1s infinite alternate;
+  }
+
+  @keyframes l2 {
+    0%,25% {
+      background-size: 8px 0,8px 4px,8px 4px,8px 0,8px 4px,8px 4px,8px 0,8px 4px,8px 4px;
+      background-position: 0 50%,0 calc(50% - 2px),0 calc(50% + 2px),50% 50%,50% calc(50% - 2px),50% calc(50% + 2px),100% 50%,100% calc(50% - 2px),100% calc(50% + 2px);
+   }
+   50% {
+      background-size: 8px 100%,8px 4px,8px 4px,8px 0,8px 4px,8px 4px,8px 0,8px 4px,8px 4px;
+      background-position: 0 50%,0 calc(0% - 2px),0 calc(100% + 2px),50% 50%,50% calc(50% - 2px),50% calc(50% + 2px),100% 50%,100% calc(50% - 2px),100% calc(50% + 2px);
+   }
+   75% {
+      background-size: 8px 100%,8px 4px,8px 4px,8px 100%,8px 4px,8px 4px,8px 0,8px 4px,8px 4px;
+      background-position: 0 50%,0 calc(0% - 2px),0 calc(100% + 2px),50% 50%,50% calc(0% - 2px),50% calc(100% + 2px),100% 50%,100% calc(50% - 2px),100% calc(50% + 2px);
+   }
+   95%,100% {
+      background-size: 8px 100%,8px 4px, 8px 4px,8px 100%,8px 4px,8px 4px,8px 100%,8px 4px,8px 4px;
+      background-position: 0 50%,0 calc(0% - 2px),0 calc(100% + 2px),50% 50%,50% calc(0% - 2px),50% calc(100% + 2px),100% 50%,100% calc(0% - 2px),100% calc(100% + 2px);
+   }
+  }
+
+/* Noise overlay */
+.wrap-noise {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 100;
+    mix-blend-mode: difference;
+    opacity: 15%;
+    pointer-events: none;
+}
+
+.wrap-noise.bg-noise {
+    background: url("./assets/img/noise.png"), var(--color-white);
+    background-size: 200px 200px;
+    animation: 250ms steps(10, end) 0s infinite alternate-reverse none running noise-animation;
+}
+
+@keyframes noise-animation {
+    0% { background-position: 0% 0%; }
+    10% { background-position: -5% -5%; }
+    20% { background-position: -10% 5%; }
+    30% { background-position: 5% -10%; }
+    40% { background-position: -5% 15%; }
+    50% { background-position: -10% 5%; }
+    60% { background-position: 5% 5%; }
+    70% { background-position: 0% 10%; }
+    80% { background-position: -5% -5%; }
+    90% { background-position: 10% 5%; }
+}
+
+  
+
+/* --- 1. HERO (THE NOISE) --- */
+.hero {
+    min-height: 100vh;
+    padding: var(--section-padding);
+    background-color: var(--color-black);
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+.hero-title {
+    visibility: hidden;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 0.85em;
+    letter-spacing: -0.07em;
+    text-shadow: var(--color-white) 0px 0px 20px;
+    z-index: 10;
+
+    /* CAMBIO DEL TAMAÑO DEL TEXTO */
+    font-size: 15vw; 
+    max-width: 90vw;          /* o el valor que estés usando */
+    margin: 0 auto;
+    white-space: normal;     /* permite múltiples líneas */
+    word-break: break-all;   /* puede cortar dentro de la “palabra” */
+    overflow-wrap: anywhere; 
+    pointer-events: none;
+    user-select: none;
+}
+
+.noise-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 40;
+    pointer-events: none; /* Para que no bloquee clics */
+    overflow: hidden;
+}
+
+.hero-title,
+.noise-overlay {
+    transition: filter 0.5s ease, 0.4s ease;
+}
+.hero:has(.scroll-callout:hover) .hero-title {
+    /* ...aplicamos blur y bajamos un poco la opacidad al título */
+    filter: blur(5px);
+}
+.hero:has(.scroll-callout:hover) .noise-overlay {
+    /* ...y aplicamos un blur más intenso y opacidad al fondo de ruido */
+    filter: blur(5px);
+}
+/* Clase para cada frase generada por JS */
+.noise-item {
+    position: absolute;
+    color: var(--color-white);
+    font-family: var(--font-primary);
+    font-weight: 100;
+    white-space: nowrap;
+    opacity: 0; /* Inicia invisible */
+}
+
+.scroll-callout {
+    margin-top: 4rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 45;
+
+    text-decoration: none; /* Quita el subrayado por defecto de los links */
+    transition: opacity 0.3s ease; /* Suaviza el efecto hover */
+}
+
+/* Opcional: Un pequeño efecto al pasar el mouse por encima de todo el bloque */
+.scroll-callout:hover {
+    opacity: 0.8;
+}
+
+/* --- El resto de tus estilos para el texto y la flecha siguen igual --- */
+.callout-text {
+    color: var(--color-blue);
+    font-weight: 500;
+    font-size: 1.2rem;
+    text-shadow: var(--color-blue) 0px 0px 20px;
+    background-color: var(--color-black);
+    border: 1px solid var(--color-blue);
+    padding: 20px;
+    border-radius: 100px;
+    z-index: 46;
+}
+
+
+
+/* --- START: INTRO TITLE (MODIFICADO) --- */
+
+
+.marquee-title{
+    position: relative; /* Cambiado a relative para posicionar los pseudo-elementos */
+    z-index: 46;
+    overflow: clip;    
+    background-color: var(--color-blue); /* Añadimos el color de fondo aquí */
+}
+/* Degradado marquee */
+.marquee-title::before,
+.marquee-title::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 5rem; 
+    z-index: 2; 
+}
+.marquee-title::before {
+    left: 0;
+    background: linear-gradient(to right, var(--color-black), transparent);
+}
+.marquee-title::after {
+    right: 0;
+    background: linear-gradient(to left, var(--color-black), transparent);
+}
+.marquee-title-track{
+    display: flex;
+    padding-left: 20px;
+    gap: 20px;
+    width: max-content;
+    animation: marquee 15s linear infinite;
+}
+.marquee-title h2{
+    padding: 10px 10px;
+    font-size: clamp(2.5rem, 8vw, 3rem);
+    font-weight: 100;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+}
+
+@keyframes marquee {
+    to {
+        transform: translateX(-50%);
+    }
+}
+/* --- END: MARQUEE TITLE --- */
+
+
+/* --- PILLS SECTION FOR HORIZONTAL SCROLL --- */
+.pills-horizontal-scroll {
+    position: relative;
+    height: 100vh; /* Fija la altura del viewport para la sección */
+    overflow: hidden; 
+    /* Esta sección será el "pin" de ScrollTrigger, así que no necesita min-height */
+}
+
+.pills-wrapper {
+    display: flex; 
+    height: 100%;
+    width: fit-content; 
+    position: absolute; 
+    top: 0;
+    left: 0;
+}
+
+.horizontal-pill {
+    width: 100vw; 
+    height: 100vh; 
+    display: flex;
+}
+
+.pill-img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 60%;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+#bubble_canvas, #glue_canvas, #sorting_canvas, #anger_canvas {
+    position: absolute;
+    z-index: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.pill-title {
+    font-size: 2.5vw;
+    font-weight: 100;
+    background-color: var(--color-black);
+    padding: 40px 30px;
+    border: 1px solid var(--color-white);
+    text-align: left;
+    text-transform: uppercase;
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+    white-space: normal;     /* permite múltiples líneas */
+    width: 15ch;
+    z-index: 20;
+}
+
+.pill-text-container {
+    display: flex;
+    align-items: flex-end;
+    width: 40%;
+    padding: 40px 40px;
+    height: 100%;
+    .pill-text {
+        font-weight: 300;
+        font-size: 20px;
+        width: 20ch;
+    }
+}
+.pill-text-container.white {
+    color: var(--color-black);
+    background-color: var(--color-white);
+}
+.pill-text-container.black {
+    color: var(--color-white);
+    background-color: var(--color-black);
+}
+
+.text-highlight{
+    color: var(--color-blue);
+    font-weight: 500;
+}
+
+/* --- 4. ANGER BREAKOUT --- */
+
+.breakout-anger {
+    position: relative;
+    padding: var(--section-padding);
+    background-color: var(--color-black);
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;  
+    flex-direction: column; 
+    align-items: center;
+    z-index: 80;
+    /* overflow: hidden; */
+}
+
+.anger-title {
+    font-size: 30vw; 
+    transform: translateX(-2%);
+    font-weight: 800;
+    color: var(--color-white);
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: -0.1em;
+    line-height: 0.9em;
+    text-shadow: var(--color-white) 0px 0px 10px;
+}
+
+.anger-subtitle {
+    font-size: 2vw;
+    text-align: left;
+    width: 40%;
+    margin-left: 80%;
+    b {
+        color: var(--color-blue);
+    }
+}
+.anger-title, .anger-subtitle {
+    position: relative;
+    z-index: 0;
+}
+ /* Emojis physics */
+ .particle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Importante: que no bloqueen clicks */
+}
+
+/* Estilo base para cada partícula */
+.anger-particle {
+    position: absolute;
+    /* Centramos el punto de transformación para que la rotación sea sobre su eje */
+    transform-origin: center center;
+    /* Un tamaño base, se puede ajustar o variar con JS */
+    font-size: 5rem; 
+    line-height: 1;
+    user-select: none;
+}
+
+.anger-particle svg {
+    width: 100%;
+    height: auto;
+}
+
+/* --- 5. FLOWCHART --- */
+.flowchart {
+    padding: var(--section-padding);
+    background-color: var(--color-black);
+    background: linear-gradient(to bottom, var(--color-black) 80%, var(--color-blue) 100%);
+    height: 100vh;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.flow-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    gap: var(--grid-gap);
+}
+
+.flow-box {
+    padding: 5rem 2rem;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border: 2px solid var(--color-white); 
+    text-align: center;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    max-width: 400px;
+    height: 400px;
+    b{
+        text-transform: uppercase;
+        text-shadow: var(--color-white) 0px 0px 20px;
+    }
+}
+
+.flow-line {
+    width: 100px;
+    height: 2px;
+    background-color: var(--color-white);
+}
+
+/* --- 6. FOOTER (FINAL MESSAGE) --- */
+.footer {
+    padding: var(--section-padding);
+    background-color: var(--color-white);
+    background-color: var(--color-white);
+    /* Definimos los stops del gradiente como variables para poder animarlos con GSAP */
+    --grad-stop-1: 30%;
+    --grad-stop-2: 40%;
+    background-image: linear-gradient(360deg, var(--color-blue) 0%, var(--color-white) var(--grad-stop-1), var(--color-white) var(--grad-stop-2), var(--color-blue) 100%);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.final-message {
+    text-align: center;
+    color: var(--color-black);
+}
+
+.final-logo {
+    font-size: clamp(5rem, 15vw, 15rem);
+    line-height: 0.9em;
+    font-weight: 800;
+    letter-spacing: 0.01em;    
+}
+
+.final-logo-highlight{
+    color: var(--color-blue);
+    animation: pulse-shadow 3s ease-in-out infinite;
+    display: inline-block; /* Asegura que la transformación se aplique correctamente */
+   
+}
+@keyframes pulse-shadow {
+    0%, 100% {
+        text-shadow: none;
+    }
+    50% {
+        text-shadow: var(--color-blue) 0px 0px 5px;
+    }
+}
+
+.final-subtitle {
+    font-size: 20px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.footer-bottom {
+    width: auto;
+    height: auto;
+    color: var(--color-black);
+    position: absolute;
+    bottom: 3.5rem; 
+    text-align: center;
+}
+
+
+/* --- AJUSTES RESPONSIVE --- */
+@media (max-width: 768px) {
+    .custom-cursor{
+        visibility: hidden;
+    }
+
+    /* hero */
+    .hero-title {
+        /* CAMBIO DEL TAMAÑO DEL TEXTO */
+        font-size: 25vw; 
+        word-break: keep-all;   /* No puede cortar dentro de la “palabra” */
+        overflow-wrap: anywhere;
+    }
+    /* marquee */
+
+    .marquee-title h2{
+        /* padding: 20px; */
+        font-size: clamp(3rem, 8vw, 7em);
+    }
+    
+    .flow-container {
+        flex-direction: column; 
+    }
+
+    /* Pills */
+    .horizontal-pill {
+        flex-direction: column;
+    }
+    .pill-title {
+        overflow-wrap: normal; 
+        font-size: 7vw;
+    }
+    .pill-img-container {
+        height: 70%;
+        width: 100%;
+    }
+    .pill-text-container {
+        align-items: flex-start;
+        width: 100%;
+        height: 30%;
+        .pill-text {
+            font-size: 16px;
+            width: 100%;
+        }
+    }
+
+    /* --- 4. ANGER BREAKOUT --- */
+    .breakout-anger {
+        padding: 20px;
+    }
+    .anger-title {
+        font-size: 35vw; 
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        letter-spacing: -0.3em;
+        height: 80%;            
+    }
+    .anger-subtitle {
+        font-size: 5vw;
+        width: 100%;
+        margin-left: 0%;
+        height: 20%;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* --- 5. FLOWCHART --- */
+    .flow-box {
+        padding: 2rem 2rem;
+        min-height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        max-width: auto;
+        width: 100%;
+        height: auto;
+    }
+    .flow-line {
+        width: 2px;
+        height: 40px;
+        background-color: var(--color-white);
+    }
+
+    /* --- 6. FOOTER (FINAL MESSAGE) --- */
+    
+    .final-logo {
+        font-size: clamp(10rem, 15vw, 25rem);
+        line-height: 0.9em;
+        font-weight: 800;
+        letter-spacing: 0.01em;    
+    }
+    .final-subtitle {
+        font-size: 15px;
+        font-weight: 300;
+        text-transform: uppercase;
+    }
+    .footer-bottom {
+        bottom: 2rem;
+    }
+}
