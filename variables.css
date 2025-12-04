@@ -1,0 +1,21 @@
+/* ------------------------- */
+/* --- VARIABLES.CSS --- */
+/* ------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap');
+
+:root {
+  /* --- COLORES --- */
+  --color-white: #FFFCEA;
+  --color-black: #000000;
+  --color-gray: #494949;
+  --color-blue: #0044FF;
+
+  /* --- TIPOGRAFÍA --- */
+  --font-primary: "Martian Mono", monospace;
+
+  /* --- DISEÑO (Layout) --- */
+  --container-width: 100%;
+  --section-padding: 6rem 2rem;
+  --grid-gap: 1.5rem;
+}

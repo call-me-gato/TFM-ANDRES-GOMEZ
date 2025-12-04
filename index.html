@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Noise Symphony</title>
+    
+    <link rel="stylesheet" href="./variables.css">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrambleTextPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Physics2DPlugin.min.js"></script>
+</head>
+<body>
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+    <div class="custom-cursor"></div>
+    <div class="wrap-noise bg-noise"></div>
+   <header class="hero">
+        <div class="noise-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                The noise symphony
+            </h1>
+            <div class="scroll-callout">
+                <p class="callout-text">// SCROLL TO DECODE//</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <section id="intro-section" class="pills-horizontal-scroll">
+            <div class="marquee-title">
+                <div class="marquee-title-track">
+                    <h2>THIS IS HOW THE WORLD DIVIDE US //</h2>
+                    <h2>THIS IS HOW THE WORLD DIVIDE US //</h2>
+                    <h2>THIS IS HOW THE WORLD DIVIDE US //</h2>
+                    <h2>THIS IS HOW THE WORLD DIVIDE US //</h2>
+                </div>
+            </div>
+            <div class="pills-wrapper">
+                <div class="horizontal-pill">
+                    <div class="pill-img-container" id="pill-img-1"> 
+                        <h3 class="pill-title">The <b class="text-highlight">"Filter</b> <br><b class="text-highlight"> Bubble"</b> Myth </h3>
+                    </div>
+                    <div class="pill-text-container white">
+                        <p class="pill-text"> We often blame algorithms for isolating us. But research shows that online, we're actually more exposed to opposing views. <br> <b class="text-highlight">The real ideological bubble is our offline life.</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="horizontal-pill">
+                    <div class="pill-img-container" id="pill-img-2"> 
+                        <h3 class="pill-title">The lost <b class="text-highlight">"Social Glue"</b> </h3>
+                    </div>
+                    <div class="pill-text-container white">
+                        <p class="pill-text"> Historically, "social glue" (shared local interests and spaces) allowed us to disagree yet still cooperate. In the massive "digital town square,"<br> <b class="text-highlight">that glue dissolves.</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="horizontal-pill">
+                    <div class="pill-img-container" id="pill-img-3"> 
+                        <h3 class="pill-title">The Mechanism:<br><b class="text-highlight">"Social</b><br><b class="text-highlight">Sorting"</b></h3>
+                    </div>
+                    <div class="pill-text-container white">
+                        <p class="pill-text"> Without that glue and overwhelmed by disagreement, your brain does the only thing it knows: it sorts everyone into teams: <b class="text-highlight">"Us" vs. "Them.".</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="horizontal-pill">
+                    <div class="pill-img-container" id="pill-img-4"> 
+                        <h3 class="pill-title">The Amplification of <b class="text-highlight">Anger</b></h3>
+                    </div>
+                    <div class="pill-text-container white">
+                        <p class="pill-text"> The algorithm doesn't just show you the "other team." It optimizes to show you the worst and most extreme members of the other team, because <b class="text-highlight">anger is the most engaging emotion that keeps us online.</b>
+                        </p>
+                    </div>
+                </div> 
+            </div>
+
+        </section>
+        <section class="breakout-anger">
+            <h2 class="anger-title">ANGER</h2>
+            <p class="anger-subtitle">IS THE MOST ENGAGING EMOTION THAT <b>KEEPS US ONLINE</b></p>
+        </section>
+
+        <section class="flowchart">
+            <div class="flow-container">
+                <div class="flow-box">
+                    <p>We cannot evolve our brains for this new information age.</p>
+                </div>
+                <div class="flow-line"></div>
+                <div class="flow-box">
+                    <p>But we can change the design of our spaces</p>
+                </div>
+                <div class="flow-line"></div>
+                <div class="flow-box">
+                    <p>The single, massive digital "town square" is drowning us in noise. <b>We don’t need more connection, but better connection.<b></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="final-message">
+            <p class="final-subtitle">The solution is to remember that </p>
+            <p class="final-logo">
+                <span class="scramble-target">THE</span><br>
+                <span class="scramble-target">TRUE</span><br>
+                <b class="final-logo-highlight scramble-target">'US'</b>
+            </p>
+            <p class="final-subtitle">IS ALL OF HUMANITY.</p>
+        </div>
+        <div class="footer-bottom">
+            <p>CREATIVE CODING FINAL MASTER // ANDRES GOMEZ // 2025</p>
+        </div>
+    </footer>
+
+    <script src="./horizontal scroll.js"></script>
+    <script src="./cursor.js"></script>
+    <script src="./hero_canvas.js"></script>
+    <script src="./bubble_canvas.js"></script>
+    <script src="./glue_canvas.js"></script>
+    <script src="./sorting_canvas.js"></script>
+    <script src="./anger_canvas.js"></script>
+    <script src="./Anger_flow_end.js"></script>
+</body>
+</html>
