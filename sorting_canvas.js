@@ -239,4 +239,7 @@ const splitGravitySketch = (p) => {
         }
     };
 
+   // Solo inicializar el sketch en dispositivos de escritorio para ahorrar recursos en móvil.
+   if (window.matchMedia("(min-width: 769px)").matches) {
     new p5(splitGravitySketch, 'pill-img-3');
+}

@@ -186,4 +186,7 @@ const bubbleSketch = (p) => {
         
         }
 };
-new p5(bubbleSketch, 'pill-img-1');
+// Solo inicializar el sketch en dispositivos de escritorio para ahorrar recursos en móvil.
+if (window.matchMedia("(min-width: 769px)").matches) {
+    new p5(bubbleSketch, 'pill-img-1');
+}

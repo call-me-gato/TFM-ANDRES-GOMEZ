@@ -134,4 +134,7 @@ const glueSketch = (p) => {
         p.resizeCanvas(container.clientWidth / 1.5, container.clientHeight / 1.5);
     };
 };
-new p5(glueSketch, 'pill-img-2');
+// Solo inicializar el sketch en dispositivos de escritorio para ahorrar recursos en móvil.
+if (window.matchMedia("(min-width: 769px)").matches) {
+    new p5(glueSketch, 'pill-img-2');
+}

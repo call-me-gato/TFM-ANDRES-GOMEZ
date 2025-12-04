@@ -174,4 +174,7 @@ const explosionSketch = (p) => {
     }
 };
 
-new p5(explosionSketch, 'pill-img-4');
+// Solo inicializar el sketch en dispositivos de escritorio para ahorrar recursos en móvil.
+if (window.matchMedia("(min-width: 769px)").matches) {
+    new p5(explosionSketch, 'pill-img-4');
+}

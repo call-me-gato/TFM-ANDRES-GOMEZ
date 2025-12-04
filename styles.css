@@ -318,6 +318,9 @@ p {
     margin: 0 auto;
     position: relative;
     overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 #bubble_canvas, #glue_canvas, #sorting_canvas, #anger_canvas {
     position: absolute;
@@ -576,6 +579,21 @@ p {
         height: 70%;
         width: 100%;
     }
+    #pill-img-1 {
+        background-image: url('./assets/img/bubbles.gif'); 
+    }
+    #pill-img-2 {
+        background-image: url('./assets/img/glue-particles.gif');
+    }
+    #pill-img-3 {
+        background-image: url('./assets/img/split-gravity.gif');
+    }
+    #pill-img-4 {
+        background-image: url('./assets/img/explosion.gif');
+    }
+    #bubble_canvas, #glue_canvas, #sorting_canvas, #anger_canvas {
+        display: none;
+    }
     .pill-text-container {
         align-items: flex-start;
         width: 100%;
@@ -585,7 +603,7 @@ p {
             width: 100%;
         }
     }
-
+    
     /* --- 4. ANGER BREAKOUT --- */
     .breakout-anger {
         padding: 20px;
